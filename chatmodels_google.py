@@ -2,14 +2,17 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 import streamlit as st
+import os
 
 load_dotenv()
 
 st.set_page_config(page_title="Chatbot", page_icon="🤖")
 st.title("🤖 AI Chatbot")
 
-model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
-
+model = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 # Store chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
